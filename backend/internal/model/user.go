@@ -7,7 +7,7 @@ type User struct {
 }
 
 type UserAlternative struct {
-	UserID   int    `json:"userId"`
-	FullName string `json:"fullName"`
+	UserID   int    `json:"user_id"`
+	FullName string `json:"full_name"`
 	Contact  string `json:"contact"`
 }
