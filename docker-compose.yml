@@ -1,0 +1,9 @@
+services:
+  adpater-example-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "23940:23940"
+    volumes:
+      - ./backend:/app
