@@ -23,6 +23,6 @@ func main() {
 		})
 	})
 
-	log.Println("Server starting on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Println("Server starting on port 23940")
+	log.Fatal(http.ListenAndServe(":23940", r))
 }
