@@ -24,6 +24,9 @@
 
 <div class="p-4">
   <h1 class="text-2xl font-bold mb-4">User List (Without Adapter)</h1>
+  <p class="mb-4 text-gray-400">
+      See the error in the console when you click the button below.
+  </p>
   <button
     class="bg-blue-500 text-white px-4 py-2 rounded mb-4"
     on:click={switchApi}
