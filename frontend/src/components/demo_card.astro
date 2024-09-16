@@ -1,0 +1,15 @@
+---
+export interface Props {
+  title: string;
+  withAdapterLink: string;
+  withoutAdapterLink: string;
+}
+
+const { title, withAdapterLink, withoutAdapterLink } = Astro.props;
+---
+
+<div class="bg-white p-6 rounded-lg shadow">
+  <h3 class="text-xl font-semibold mb-4">{title}</h3>
+  <a href={withAdapterLink} class="text-blue-500 hover:underline block mb-2">With Adapter</a>
+  <a href={withoutAdapterLink} class="text-blue-500 hover:underline block">Without Adapter</a>
+</div>
