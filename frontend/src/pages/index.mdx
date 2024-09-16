@@ -1,0 +1,160 @@
+---
+layout: ../layouts/mdx_layout.astro
+title: Adapter Pattern in Frontend Frameworks
+---
+import DemoCard from '../components/demo_card.astro';
+
+# Adapter Pattern in Frontend Frameworks
+
+## What is the Adapter Pattern?
+
+The Adapter Pattern is a structural design pattern that allows objects with incompatible interfaces to collaborate. In the context of frontend development, it's particularly useful when dealing with changing API structures or multiple data sources.
+
+In this demo, we showcase how the Adapter Pattern can be used to handle two different API versions without changing the component logic.
+
+## Interface and Adapter Setup
+
+First, let's look at our interfaces:
+
+```typescript
+// src/lib/interfaces.ts
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+export interface UserAlternative {
+  userId: number;
+  fullName: string;
+  contact: string;
+}
+```
+
+Here, we define two interfaces:
+1. **User**: Represents the structure we want to use in our application.
+2. **UserAlternative**: Represents the structure of the data coming from the alternative API (v2).
+
+Now, let's see how we implement the adapter:
+
+```typescript
+// src/lib/adapter.ts
+import { User, UserAlternative } from './interfaces';
+
+export const adaptUser = (user: UserAlternative): User => ({
+  id: user.userId,
+  name: user.fullName,
+  email: user.contact,
+});
+```
+
+The **adaptUser** function takes an object of type **UserAlternative** and returns an object of type **User**. It simply maps the properties of the **UserAlternative** object to the corresponding properties of the **User** object.
+
+By using this adapter, we can easily switch between API versions without changing our component logic. The adapter ensures that the data structure remains consistent in our application, even when the external API structure changes.
+
+## Framework Implementations
+
+### React
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { getUsersV1, getUsersV2 } from '../../lib/api_client';
+import { adaptUser } from '../../lib/adapter';
+import { User } from '../../lib/interfaces';
+
+export const UserListWithAdapter: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [apiVersion, setApiVersion] = useState<1 | 2>(1);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (apiVersion === 1) {
+        const data = await getUsersV1();
+        setUsers(data);
+      } else {
+        const data = await getUsersV2();
+        setUsers(data.map(adaptUser));
+      }
+    };
+    fetchUsers();
+  }, [apiVersion]);
+
+  // ... rest of the component
+}
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { getUsersV1, getUsersV2 } from '../../lib/api_client';
+  import { adaptUser } from '../../lib/adapter';
+  import type { User } from '../../lib/interfaces';
+
+  let users: User[] = [];
+  let apiVersion: 1 | 2 = 1;
+
+  const fetchUsers = async () => {
+    if (apiVersion === 1) {
+      users = await getUsersV1();
+    } else {
+      const data = await getUsersV2();
+      users = data.map(adaptUser);
+    }
+  };
+
+  onMount(fetchUsers);
+
+  // ... rest of the component
+</script>
+```
+
+### Vue
+
+```vue
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
+import { getUsersV1, getUsersV2 } from '../../lib/api_client';
+import { adaptUser } from '../../lib/adapter';
+import type { User } from '../../lib/interfaces';
+
+export default defineComponent({
+  setup() {
+    const users = ref<User[]>([]);
+    const apiVersion = ref<1 | 2>(1);
+
+    const fetchUsers = async () => {
+      if (apiVersion.value === 1) {
+        users.value = await getUsersV1();
+      } else {
+        const data = await getUsersV2();
+        users.value = data.map(adaptUser);
+      }
+    };
+
+    // ... rest of the component
+  },
+});
+</script>
+```
+
+## Demo Links
+
+<div class="demo-links">
+  <DemoCard
+    title="React"
+    withAdapterLink="/react/with-adapter"
+    withoutAdapterLink="/react/without-adapter"
+  />
+  <DemoCard
+    title="Svelte"
+    withAdapterLink="/svelte/with-adapter"
+    withoutAdapterLink="/svelte/without-adapter"
+  />
+  <DemoCard
+    title="Vue"
+    withAdapterLink="/vue/with-adapter"
+    withoutAdapterLink="/vue/without-adapter"
+  />
+</div>
