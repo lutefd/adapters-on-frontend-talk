@@ -1,0 +1,49 @@
+---
+const { title } = Astro.props.frontmatter;
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <slot />
+        <footer class="text-center text-gray-500 mt-12">
+            <p>Created to demonstrate the Adapter Pattern in frontend frameworks</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<style is:global>
+    h1 {
+        @apply text-4xl font-bold mb-8 text-center;
+    }
+    h2 {
+        @apply text-2xl font-semibold mb-4 mt-8;
+    }
+    h3 {
+        @apply text-xl font-semibold mb-2 mt-6;
+    }
+    p {
+        @apply mb-4;
+    }
+    pre {
+        @apply mb-6 rounded-lg overflow-x-auto bg-gray-800 p-4;
+    }
+    code {
+        @apply text-sm text-gray-200;
+    }
+    ol, ul {
+        @apply list-disc pl-5 mb-4;
+    }
+    a {
+        @apply text-blue-500 hover:underline;
+    }
+    .demo-links {
+        @apply grid md:grid-cols-3 gap-4 mb-12;
+    }
+</style>
