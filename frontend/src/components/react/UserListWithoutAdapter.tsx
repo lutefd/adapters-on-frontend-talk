@@ -30,12 +30,8 @@ export const UserListWithoutAdapter: React.FC = () => {
       </button>
       <ul className="space-y-2">
         {users.map((user) => (
-          <li
-            key={"id" in user ? user.id : user.user_id}
-            className="bg-gray-100 p-2 rounded"
-          >
-            {"name" in user ? user.name : user.full_name}
-            {"email" in user ? user.email : user.contact}
+          <li key={user.id} className="bg-gray-100 p-2 rounded">
+            {user.name} - {user.email}
           </li>
         ))}
       </ul>

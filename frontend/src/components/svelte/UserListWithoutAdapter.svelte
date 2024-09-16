@@ -31,9 +31,9 @@
     Switch to API v{apiVersion === 1 ? '2' : '1'}
   </button>
   <ul class="space-y-2">
-    {#each users as user (('id' in user ? user.id : user.user_id))}
+    {#each users as user (user.id)}
       <li class="bg-gray-100 p-2 rounded">
-        {('name' in user ? user.name : user.full_name)} - {('email' in user ? user.email : user.contact)}
+        {user.name} - {user.email}
       </li>
     {/each}
   </ul>

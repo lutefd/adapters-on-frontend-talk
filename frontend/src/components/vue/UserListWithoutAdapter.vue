@@ -8,13 +8,8 @@
       Switch to API v{{ apiVersion === 1 ? "2" : "1" }}
     </button>
     <ul class="space-y-2">
-      <li
-        v-for="user in users"
-        :key="'id' in user ? user.id : user.user_id"
-        class="bg-gray-100 p-2 rounded"
-      >
-        {{ "name" in user ? user.name : user.full_name }} -
-        {{ "email" in user ? user.email : user.contact }}
+      <li v-for="user in users" :key="user.id" class="bg-gray-100 p-2 rounded">
+        {{ user.name }} - {{ user.email }}
       </li>
     </ul>
   </div>
